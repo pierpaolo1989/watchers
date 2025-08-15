@@ -1,0 +1,18 @@
+{
+  "frontendFolder": "/home/pierpaolodidato/Scrivania/coding/github/watchers/./src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "/home/pierpaolodidato/Scrivania/coding/github/watchers/./src/main/frontend/generated/jar-resources",
+  "staticOutput": "/home/pierpaolodidato/Scrivania/coding/github/watchers/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "/home/pierpaolodidato/Scrivania/coding/github/watchers/target/classes/META-INF/VAADIN/config",
+  "frontendBundleOutput": "/home/pierpaolodidato/Scrivania/coding/github/watchers/target/classes/META-INF/VAADIN/webapp",
+  "devBundleOutput": "/home/pierpaolodidato/Scrivania/coding/github/watchers/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "/home/pierpaolodidato/Scrivania/coding/github/watchers/target/dev-bundle/config",
+  "i18nOutput": "target/classes/vaadin-i18n",
+  "jarResourcesFolder": "/home/pierpaolodidato/Scrivania/coding/github/watchers/./src/main/frontend/generated/jar-resources",
+  "themeName": "watchers",
+  "clientServiceWorkerSource": "/home/pierpaolodidato/Scrivania/coding/github/watchers/target/sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
