@@ -16,22 +16,21 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.validator.EmailValidator;
-import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 
-@PageTitle("Login")
-@Route("/login")
-public class LoginView extends VerticalLayout {
+@PageTitle("Registration")
+@Route("/registration")
+public class RegistrationView extends VerticalLayout {
 
     private EmailField emailField;
     private PasswordField passwordField;
+    private PasswordField confirmPasswordField;
     private Button loginButton;
     private Binder<LoginData> binder;
 
-    public LoginView() {
+    public RegistrationView() {
         createUI();
         setupValidation();
         setupEventHandlers();
@@ -56,7 +55,7 @@ public class LoginView extends VerticalLayout {
                 .set("max-width", "90%");
 
         // Titolo
-        H2 title = new H2("Accedi");
+        H2 title = new H2("Sign up");
         title.getStyle().set("text-align", "center").set("margin", "0 0 2rem 0");
 
         // Form layout
@@ -77,14 +76,22 @@ public class LoginView extends VerticalLayout {
         passwordField.setMinLength(6);
         passwordField.setErrorMessage("La password deve essere di almeno 6 caratteri");
 
+        // Campo conferma password
+        confirmPasswordField = new PasswordField("Conferma Password");
+        confirmPasswordField.setPlaceholder("inserisci la password");
+        confirmPasswordField.setWidthFull();
+        confirmPasswordField.setRequired(true);
+        confirmPasswordField.setMinLength(6);
+        confirmPasswordField.setErrorMessage("Le due password devono coincidere");
+
         // Button login
-        loginButton = new Button("Accedi");
+        loginButton = new Button("Registrati");
         loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         loginButton.setWidthFull();
         loginButton.getStyle().set("margin-top", "1rem");
 
         // Aggiungi componenti al form
-        formLayout.add(emailField, passwordField);
+        formLayout.add(emailField, passwordField, confirmPasswordField);
 
         // Aggiungi tutto al card
         loginCard.add(title, formLayout, loginButton);

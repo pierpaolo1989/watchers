@@ -12,7 +12,7 @@ import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 @PageTitle("Hello World")
 @Route("")
-@Menu(order = 0, icon = LineAwesomeIconUrl.GLOBE_SOLID)
+//@Menu(order = 0, icon = LineAwesomeIconUrl.GLOBE_SOLID)
 public class HelloWorldView extends HorizontalLayout {
 
     private TextField name;

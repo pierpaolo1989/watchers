@@ -12,7 +12,7 @@ import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 @PageTitle("About")
 @Route("about")
-@Menu(order = 1, icon = LineAwesomeIconUrl.FILE)
+//@Menu(order = 1, icon = LineAwesomeIconUrl.FILE)
 public class AboutView extends VerticalLayout {
 
     public AboutView() {
