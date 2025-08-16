@@ -28,7 +28,7 @@ public class AuthService {
     private final UserRepository userRepository;
 
     public void authenticate(String username, String password) throws AuthException {
-        User user = userRepository.getByUsername(username);
+        User user = userRepository.findByEmail(username);
 
         if (user != null && user.checkPassword(password)) {
             // Salva l'utente in sessione

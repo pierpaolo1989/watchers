@@ -16,7 +16,7 @@ public class User {
     @Column
     private Long id;
     @Column
-    private String username;
+    private String email;
     @Column
     private String passwordSalt;
     @Column
