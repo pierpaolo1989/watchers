@@ -20,6 +20,10 @@ public class Watch {
     @JoinColumn(name="producer_id", nullable=false)
     private Producer producer;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
+
     @OneToOne
     private WatchDetail specifications;
 

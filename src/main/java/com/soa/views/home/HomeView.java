@@ -1,21 +1,19 @@
-package com.soa.views.about;
+package com.soa.views.home;
 
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
-@PageTitle("About")
-@Route("about")
+@PageTitle("Home")
+@Route("home")
 //@Menu(order = 1, icon = LineAwesomeIconUrl.FILE)
-public class AboutView extends VerticalLayout {
+public class HomeView extends VerticalLayout {
 
-    public AboutView() {
+    public HomeView() {
         setSpacing(false);
 
         Image img = new Image("images/empty-plant.png", "placeholder plant");
