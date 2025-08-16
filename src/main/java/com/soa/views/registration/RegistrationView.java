@@ -1,5 +1,6 @@
-package com.soa.views.login;
+package com.soa.views.registration;
 
+import com.soa.service.UserService;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Shortcuts;
 import com.vaadin.flow.component.UI;
@@ -30,11 +31,12 @@ public class RegistrationView extends VerticalLayout {
     private PasswordField confirmPasswordField;
     private Button loginButton;
     private Binder<LoginData> binder;
+    private UserService userService;
 
-    public RegistrationView() {
+    public RegistrationView(UserService userService) {
         createUI();
         setupValidation();
-        setupEventHandlers();
+        setupEventHandlers(userService);
     }
 
     private void createUI() {
@@ -127,12 +129,12 @@ public class RegistrationView extends VerticalLayout {
                 .bind(LoginData::getPassword, LoginData::setPassword);
     }
 
-    private void setupEventHandlers() {
+    private void setupEventHandlers(UserService userService) {
         // Click del button
-        loginButton.addClickListener(event -> performLogin());
+        loginButton.addClickListener(event -> performLogin(userService));
 
         // Enter key sul form
-        Shortcuts.addShortcutListener(this, this::performLogin, Key.ENTER);
+        Shortcuts.addShortcutListener(this, () -> performLogin(userService), Key.ENTER);
 
         // Abilita/disabilita button in base alla validità
         binder.addStatusChangeListener(event -> {
@@ -140,36 +142,26 @@ public class RegistrationView extends VerticalLayout {
         });
     }
 
-    private void performLogin() {
+    private void performLogin(UserService userService) {
         try {
             LoginData loginData = new LoginData();
             binder.writeBean(loginData);
 
-            // Simula autenticazione (sostituisci con la tua logica)
-            if (authenticateUser(loginData.getEmail(), loginData.getPassword())) {
-                Notification.show("Login effettuato con successo!", 3000, Notification.Position.TOP_CENTER)
-                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+            userService.registerUser(loginData.getEmail(), loginData.getPassword());
 
-                // Reindirizza alla dashboard o pagina principale
-                UI.getCurrent().navigate("dashboard");
+            Notification.show("Registrazione completata!", 3000, Notification.Position.TOP_CENTER)
+                    .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 
-            } else {
-                Notification.show("Email o password non validi", 3000, Notification.Position.TOP_CENTER)
-                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
-            }
+            // Redirect alla login dopo registrazione
+            UI.getCurrent().navigate("login");
 
+        } catch (IllegalArgumentException e) {
+            Notification.show(e.getMessage(), 3000, Notification.Position.TOP_CENTER)
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
         } catch (ValidationException e) {
             Notification.show("Controlla i dati inseriti", 3000, Notification.Position.TOP_CENTER)
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);
         }
-    }
-
-    private boolean authenticateUser(String email, String password) {
-        // TODO: Implementa qui la tua logica di autenticazione
-        // Esempio: chiamata a servizio, database, ecc.
-
-        // Per ora, login demo
-        return "admin@example.com".equals(email) && "password123".equals(password);
     }
 
     // Classe per il data binding
