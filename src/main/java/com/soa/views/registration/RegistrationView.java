@@ -6,6 +6,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
@@ -90,11 +91,22 @@ public class RegistrationView extends VerticalLayout {
         loginButton.setWidthFull();
         loginButton.getStyle().set("margin-top", "1rem");
 
+        Anchor anchor = new Anchor("login", "Hai già un account? Vai alla login");
+        anchor.getStyle()
+                .set("display", "block")
+                .set("text-align", "center")
+                .set("margin-top", "1rem")
+                .set("color", "#0d6efd")
+                .set("text-decoration", "none");
+
+        // Aggiungi hover effect (opzionale)
+        anchor.getElement().getStyle().set("cursor", "pointer");
+
         // Aggiungi componenti al form
         formLayout.add(emailField, passwordField, confirmPasswordField);
 
         // Aggiungi tutto al card
-        loginCard.add(title, formLayout, loginButton);
+        loginCard.add(title, formLayout, loginButton, anchor);
 
         // Aggiungi il card al layout principale
         add(loginCard);

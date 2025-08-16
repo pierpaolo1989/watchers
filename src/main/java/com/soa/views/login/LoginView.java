@@ -19,6 +19,7 @@ import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.component.html.Anchor; // aggiungi in cima agli import
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 
@@ -83,11 +84,23 @@ public class LoginView extends VerticalLayout {
         loginButton.setWidthFull();
         loginButton.getStyle().set("margin-top", "1rem");
 
+        // Link per registrazione
+        Anchor registerLink = new Anchor("registration", "Non sei registrato? Registrati");
+        registerLink.getStyle()
+                .set("display", "block")
+                .set("text-align", "center")
+                .set("margin-top", "1rem")
+                .set("color", "#0d6efd")
+                .set("text-decoration", "none");
+
+        // Aggiungi hover effect (opzionale)
+        registerLink.getElement().getStyle().set("cursor", "pointer");
+
         // Aggiungi componenti al form
         formLayout.add(emailField, passwordField);
 
         // Aggiungi tutto al card
-        loginCard.add(title, formLayout, loginButton);
+        loginCard.add(title, formLayout, loginButton, registerLink);
 
         // Aggiungi il card al layout principale
         add(loginCard);
