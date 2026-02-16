@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-@PageTitle("My App")
+@PageTitle("Wacthers")
 @Theme(value = "watchers")
 public class Application implements AppShellConfigurator {
 

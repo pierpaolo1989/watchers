@@ -18,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final SecureRandom random = new SecureRandom();
 
-    public User registerUser(String email, String rawPassword) {
+    public void registerUser(String email, String rawPassword) {
         if (Objects.nonNull(userRepository.findByEmail(email))) {
             throw new IllegalArgumentException("Email già registrata");
         }
@@ -32,7 +32,7 @@ public class UserService {
         user.setPasswordHash(hash);
         user.setRole(Role.USER);
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     private String generateSalt() {
