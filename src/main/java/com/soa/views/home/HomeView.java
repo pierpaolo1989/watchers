@@ -4,10 +4,13 @@ import com.soa.model.User;
 import com.soa.model.Watch;
 import com.soa.service.WatchService;
 import com.soa.views.dialog.WatchDialog;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -37,14 +40,22 @@ public class HomeView extends VerticalLayout {
     }
 
     private void configureToolbar() {
-        Button addButton = new Button("Aggiungi Orologio", e -> openDialog(new Watch()));
+        Button addButton = new Button(new Icon(VaadinIcon.PLUS), e -> openDialog(new Watch()));
         addButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        HorizontalLayout toolbar = new HorizontalLayout(addButton);
-        toolbar.setWidthFull();
-        toolbar.setJustifyContentMode(JustifyContentMode.END);
+        Button logoutButton = new Button(new Icon(VaadinIcon.SIGN_OUT), e -> logout());
+        logoutButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
+        HorizontalLayout toolbar = new HorizontalLayout(addButton, logoutButton);
+        toolbar.setWidthFull();
+        toolbar.setJustifyContentMode(JustifyContentMode.BETWEEN);
         add(toolbar);
+    }
+
+    private void logout() {
+        VaadinSession.getCurrent().setAttribute(User.class, null);
+        VaadinSession.getCurrent().close();
+        UI.getCurrent().navigate("/");
     }
 
     private void openDialog(Watch watch) {
@@ -63,22 +74,25 @@ public class HomeView extends VerticalLayout {
                 .setAutoWidth(true);
 
         grid.addColumn(w -> w.getProducer().getName())
-                .setHeader("Producer")
+                .setHeader("Marchio")
                 .setAutoWidth(true);
 
-        grid.addColumn(w -> w.getUser().getEmail())
-                .setHeader("User")
+        grid.addColumn(w -> w.getProducer().getName())
+                .setHeader("Modello")
                 .setAutoWidth(true);
 
         grid.addColumn(Watch::getPurchaseDate)
-                .setHeader("Purchase Date")
+                .setHeader("Data di acquisto")
                 .setAutoWidth(true);
 
         // Colonna con pulsanti
         grid.addComponentColumn(watch -> {
-            Button edit = new Button("Modifica", e -> editWatch(watch));
-            Button delete = new Button("Elimina", e -> deleteWatch(watch));
-
+            Button edit = new Button(new Icon(VaadinIcon.EDIT), e -> editWatch(watch));
+            edit.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+            Button delete = new Button(new Icon(VaadinIcon.TRASH), e -> deleteWatch(watch));
+            delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+            delete.getElement().setProperty("title", "Cancella");
+            edit.getElement().setProperty("title", "Modifica");
             return new HorizontalLayout(edit, delete);
         }).setHeader("Azioni");
 
