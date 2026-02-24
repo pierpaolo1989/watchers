@@ -1,7 +1,9 @@
 package com.soa.views.home;
 
+import com.soa.model.Producer;
 import com.soa.model.User;
 import com.soa.model.Watch;
+import com.soa.service.ProducerService;
 import com.soa.service.WatchService;
 import com.soa.views.dialog.WatchDialog;
 import com.vaadin.flow.component.UI;
@@ -23,10 +25,12 @@ import com.vaadin.flow.server.VaadinSession;
 public class HomeView extends VerticalLayout {
 
     private final WatchService watchService;
+    private final ProducerService producerService;
     private final Grid<Watch> grid = new Grid<>(Watch.class, false);
 
-    public HomeView(WatchService watchService) {
+    public HomeView(WatchService watchService, ProducerService producerService) {
         this.watchService = watchService;
+        this.producerService = producerService;
 
         setSizeFull();
         configureToolbar();
@@ -59,7 +63,7 @@ public class HomeView extends VerticalLayout {
     }
 
     private void openDialog(Watch watch) {
-        WatchDialog dialog = new WatchDialog(watchService, watch, this::loadData);
+        WatchDialog dialog = new WatchDialog(watchService, producerService, watch, this::loadData);
         dialog.open();
     }
 
@@ -77,7 +81,7 @@ public class HomeView extends VerticalLayout {
                 .setHeader("Marchio")
                 .setAutoWidth(true);
 
-        grid.addColumn(w -> w.getProducer().getName())
+        grid.addColumn(w -> w.getModel())
                 .setHeader("Modello")
                 .setAutoWidth(true);
 
@@ -85,7 +89,6 @@ public class HomeView extends VerticalLayout {
                 .setHeader("Data di acquisto")
                 .setAutoWidth(true);
 
-        // Colonna con pulsanti
         grid.addComponentColumn(watch -> {
             Button edit = new Button(new Icon(VaadinIcon.EDIT), e -> editWatch(watch));
             edit.addThemeVariants(ButtonVariant.LUMO_PRIMARY);

@@ -11,17 +11,21 @@ import java.time.LocalDate;
 public class Watch {
 
     @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(name = "model_name")
+    private String model;
 
     @Column(name = "reference_id")
     private String referenceId;
 
     @ManyToOne
-    @JoinColumn(name="producer_id", nullable=false)
+    @JoinColumn(name = "producer_id", nullable=false)
     private Producer producer;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id", nullable=false)
     private User user;
 
     @OneToOne

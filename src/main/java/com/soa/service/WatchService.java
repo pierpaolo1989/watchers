@@ -17,6 +17,10 @@ public class WatchService {
         return watchRepository.findAll();
     }
 
+    public void save(Watch watch) {
+        watchRepository.save(watch);
+    }
+
     public List<Watch> findAll(String email) {
         return watchRepository.findByUserEmail(email);
     }
