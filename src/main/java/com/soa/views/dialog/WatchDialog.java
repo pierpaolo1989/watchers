@@ -3,6 +3,7 @@ package com.soa.views.dialog;
 import com.soa.model.Producer;
 import com.soa.model.User;
 import com.soa.model.Watch;
+import com.soa.model.enums.MovementEnum;
 import com.soa.service.ProducerService;
 import com.soa.service.WatchService;
 import com.vaadin.flow.component.button.Button;
@@ -17,6 +18,8 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.server.VaadinSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 
 public class WatchDialog extends Dialog {
 
@@ -56,6 +59,11 @@ public class WatchDialog extends Dialog {
         producer.setItemLabelGenerator(Producer::getName);
         producer.setWidthFull();
 
+        ComboBox<MovementEnum> movement = new ComboBox<>("Movimento");
+        movement.setItems(Arrays.stream(MovementEnum.values()).toList());
+        movement.setItemLabelGenerator(MovementEnum::name);
+        movement.setWidthFull();
+
         Button save = new Button("Salva");
         Button cancel = new Button("Annulla", e -> close());
 
@@ -66,6 +74,7 @@ public class WatchDialog extends Dialog {
                 reference,
                 purchaseDate,
                 producer,
+                movement,
                 buttons
         );
 
@@ -74,6 +83,9 @@ public class WatchDialog extends Dialog {
         binder.forField(model)
                 .asRequired("Obbligatorio")
                 .bind(Watch::getModel, Watch::setModel);
+        binder.forField(movement)
+                .asRequired("Obbligatorio")
+                .bind(Watch::getMovement, Watch::setMovement);
         binder.forField(producer)
                 .asRequired("Obbligatorio")
                 .bind(Watch::getProducer, Watch::setProducer);

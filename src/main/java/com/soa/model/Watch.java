@@ -1,5 +1,6 @@
 package com.soa.model;
 
+import com.soa.model.enums.MovementEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,9 @@ public class Watch {
 
     @Column(name = "model_name")
     private String model;
+
+    @Column(name = "movement")
+    private MovementEnum movement;
 
     @Column(name = "reference_id")
     private String referenceId;

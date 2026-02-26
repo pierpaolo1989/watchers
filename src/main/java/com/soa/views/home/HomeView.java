@@ -5,11 +5,13 @@ import com.soa.model.User;
 import com.soa.model.Watch;
 import com.soa.service.ProducerService;
 import com.soa.service.WatchService;
+import com.soa.views.dialog.WatchDetailDialog;
 import com.soa.views.dialog.WatchDialog;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -99,6 +101,7 @@ public class HomeView extends VerticalLayout {
             return new HorizontalLayout(edit, delete);
         }).setHeader("Azioni");
 
+        grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         grid.setSizeFull();
     }
 
@@ -112,8 +115,8 @@ public class HomeView extends VerticalLayout {
     }
 
     private void editWatch(Watch watch) {
-        Notification.show("Modifica watch ID: " + watch.getId());
-        // Qui puoi aprire una Dialog o navigare a una EditView
+        WatchDetailDialog dialog = new WatchDetailDialog(watch);
+        dialog.open();
     }
 
     private void deleteWatch(Watch watch) {
